@@ -1,5 +1,5 @@
-# Simplified Railway configuration
-# Railway should auto-detect Python app
+# Railway Python deployment
+# Railway should auto-detect Python and install from requirements.txt
 
 [[services]]
 type = "web"
