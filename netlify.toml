@@ -4,7 +4,7 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://myrecipefinder-backend.onrender.com/api/:splat"
+  to = "https://myrecipefinder-prod.up.railway.app/api/:splat"
   status = 200
 
 [build.environment]
