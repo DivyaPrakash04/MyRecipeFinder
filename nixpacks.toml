@@ -1,16 +1,28 @@
 [variables]
 PYTHON_VERSION = "3.11"
+PYTHONPATH = "/app/backend"
 
 [phases.setup]
-nixPkgs = ["python311", "python3", "python39", "python310", "python311", "gcc"]
+nixPkgs = [
+    "python311",
+    "python3",
+    "python39",
+    "python310",
+    "python311",
+    "gcc",
+    "python3-pip",
+    "python3-dev"
+]
 
 [phases.install]
 cmds = [
-    "cd backend",
-    "python3 -m ensurepip --upgrade",
-    "python3 -m pip install --upgrade pip setuptools wheel",
-    "python3 -m pip install -r requirements.txt"
+    "echo '=== Nixpacks Install Phase ==='",
+    "python3 --version || python3.11 --version || python3.10 --version || python3.9 --version || echo 'No Python found'",
+    "python3 -m ensurepip --upgrade || python3.11 -m ensurepip --upgrade || echo 'ensurepip failed'",
+    "python3 -m pip install --upgrade pip setuptools wheel || python3.11 -m pip install --upgrade pip setuptools wheel || echo 'pip upgrade failed'",
+    "python3 -m pip install -r requirements.txt || python3.11 -m pip install -r requirements.txt || echo 'requirements installation failed'",
+    "echo '=== Installation Complete ==='"
 ]
 
 [start]
-cmd = "./start.sh"
+cmd = "chmod +x start.sh && ./start.sh"

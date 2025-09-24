@@ -1,9 +1,8 @@
 #!/bin/bash
-cd backend
 
 echo "=== Railway Environment Debug Info ==="
 echo "Current directory: $(pwd)"
-echo "Files in backend: $(ls -la backend/)"
+echo "Files in current directory: $(ls -la)"
 echo "Available Python commands:"
 which python || echo "python not found"
 which python3 || echo "python3 not found"
@@ -13,6 +12,7 @@ which python3.11 || echo "python3.11 not found"
 echo "PATH: $PATH"
 echo "=== End Debug Info ==="
 
+# Railway runs this script from the backend directory, so no need to cd
 # Try different Python commands in order of preference
 PYTHON_CMD=""
 
