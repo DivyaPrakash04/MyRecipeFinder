@@ -9,13 +9,11 @@ startCommand = "python3 main.py"
 
 [services.envVars]
 FLASK_ENV = "production"
-FRONTEND_ORIGIN = "https://myrecipefinder.up.railway.app,https://myrecipefinder-frontend-production.up.railway.app"
+FRONTEND_ORIGIN = "https://myrecipefinder.up.railway.app,https://myrecipefinder-frontend-production.up.railway.app,https://myrecipefinder-prod.up.railway.app"
 COHERE_API_KEY = "@COHERE_API_KEY"
 TAVILY_API_KEY = "@TAVILY_API_KEY"
-DATABASE_URL = "sqlite:///./app.db"
+DATABASE_URL = "@DATABASE_URL"
 LLM_MODEL = "command-a-03-2025"
-
-# FREE API Keys
-FATSECRET_APP_KEY = "53bbe30328664df5812e3333ffe2d769"
-FATSECRET_APP_SECRET = "7fb510c3dcc64c459a4da4291d3dce48"
-SPOONACULAR_API_KEY = "83e4f14342ae445dbc82374c6aaf7b76"
+FATSECRET_APP_KEY = "@FATSECRET_APP_KEY"
+FATSECRET_APP_SECRET = "@FATSECRET_APP_SECRET"
+SPOONACULAR_API_KEY = "@SPOONACULAR_API_KEY"

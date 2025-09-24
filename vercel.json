@@ -12,7 +12,7 @@
   "redirects": [
     {
       "source": "/api/:splat",
-      "destination": "https://myrecipefinder-backend-production.up.railway.app/api/:splat"
+      "destination": "https://myrecipefinder-prod.up.railway.app/api/:splat"
     }
   ],
   "rewrites": [

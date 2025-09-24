@@ -5,13 +5,13 @@ export default defineConfig({
   plugins: [react()],
   preview: {
     host: '0.0.0.0',
-    port: process.env.PORT || 8080,
+    port: process.env.PORT || 4173,  // Changed: Use Vite's default preview port
     strictPort: true,
-    allowedHosts: 'all'  // Changed: Use 'all' instead of array
+    allowedHosts: 'all'
   },
   server: {
     host: '0.0.0.0',
-    port: process.env.PORT || 5173,
-    allowedHosts: 'all'  // Added: Also for server config
+    port: 5173,  // Changed: Keep dev server port static
+    allowedHosts: 'all'
   }
 })
