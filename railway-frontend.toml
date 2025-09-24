@@ -6,8 +6,8 @@ builder = "nixpacks"
 NODE_ENV = "production"
 
 [deploy]
-startCommand = "npm run preview"
 healthcheckPath = "/"
+# Removed: startCommand = "npm run preview"
 
 [services.frontend]
 type = "web"
