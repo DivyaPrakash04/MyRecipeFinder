@@ -16,4 +16,5 @@ buildCommand = "cd frontend && npm install && npm run build"
 startCommand = "cd frontend && npx serve dist -s -p $PORT"
 
 [services.frontend.envVars]
+VITE_API_BASE_URL = "https://myrecipefinder-prod.up.railway.app"
 NODE_ENV = "production"

@@ -70,7 +70,7 @@ def _do_search(state: GraphState) -> GraphState:
 def _generate(state: GraphState) -> GraphState:
     t0 = time.perf_counter()
     # Initialize Cohere chat via LangChain integration (reads COHERE_API_KEY from env)
-    llm = ChatCohere(model=os.getenv("LLM_MODEL", "command-r"), temperature=0.3)
+    llm = ChatCohere(model=os.getenv("LLM_MODEL", "command-r-plus"), temperature=0.3)
 
     # System instructions + context
     ctx = state.get("context") or {}

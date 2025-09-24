@@ -43,7 +43,7 @@ def generate_reply(system_instructions: str, history: list[dict], user_message: 
         messages.append({"role": "user", "content": user_message})
 
         resp = co.responses.create(
-            model=os.getenv("LLM_MODEL", "command-r"),
+            model=os.getenv("LLM_MODEL", "command-r-plus"),
             messages=messages,
             temperature=0.3,
         )
@@ -71,7 +71,7 @@ def generate_reply(system_instructions: str, history: list[dict], user_message: 
             chat_history.append({"role": "CHATBOT", "message": text})
 
     resp = co.chat(
-        model=os.getenv("LLM_MODEL", "command-r"),
+        model=os.getenv("LLM_MODEL", "command-r-plus"),
         message=user_message,
         chat_history=chat_history if chat_history else None,
         preamble=preamble or None,
