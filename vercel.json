@@ -11,7 +11,7 @@
   ],
   "redirects": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/:splat",
       "destination": "https://myrecipefinder-backend-production.up.railway.app/api/:splat"
     }
   ]
