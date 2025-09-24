@@ -9,7 +9,7 @@ startCommand = "python3 main.py"
 
 [services.envVars]
 FLASK_ENV = "production"
-PORT = "4000"
+FRONTEND_ORIGIN = "https://myrecipefinder.up.railway.app,https://myrecipefinder-frontend-production.up.railway.app"
 COHERE_API_KEY = "@COHERE_API_KEY"
 TAVILY_API_KEY = "@TAVILY_API_KEY"
 DATABASE_URL = "sqlite:///./app.db"
