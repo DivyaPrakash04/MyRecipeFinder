@@ -1,17 +1,14 @@
-# Vercel + Railway Backend Option
-# Use this instead of render.yaml if you prefer Railway
+# Simplified Railway configuration
+# Railway should auto-detect Python app
 
 [[services]]
 type = "web"
 name = "myrecipefinder-backend"
 runtime = "python3"
-buildCommand = "echo 'Railway build starting...' && ls -la && echo 'Build complete'"
-startCommand = "chmod +x start.sh && ./start.sh"
+startCommand = "python3 main.py"
 
 [services.envVars]
 FLASK_ENV = "production"
 COHERE_API_KEY = "@COHERE_API_KEY"
 TAVILY_API_KEY = "@TAVILY_API_KEY"
 DATABASE_URL = "@DATABASE_URL"
-PYTHONPATH = "/app/backend"
-PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
