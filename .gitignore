@@ -10,7 +10,7 @@ backend/*.pyc
 # Env and local DB
 backend/.env
 backend/app.db
-
+backend/.env.mcp
 # OS
 .DS_Store
 Thumbs.db
