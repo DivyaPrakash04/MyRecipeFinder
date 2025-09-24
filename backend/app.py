@@ -16,7 +16,7 @@ from llm_graph import run_graph
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")}})
+CORS(app, resources={r"/*": {"origins": os.getenv("FRONTEND_ORIGIN", "http://localhost:5173").split(",")}})
 
 # Initialize DB tables on startup
 init_db()
