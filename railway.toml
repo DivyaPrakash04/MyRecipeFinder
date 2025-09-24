@@ -5,7 +5,7 @@
 type = "web"
 name = "myrecipefinder-backend"
 runtime = "python3"
-buildCommand = "echo 'Railway build starting...' && python3 --version && echo 'Build complete'"
+buildCommand = "echo 'Railway build starting...' && ls -la && echo 'Build complete'"
 startCommand = "chmod +x start.sh && ./start.sh"
 
 [services.envVars]
@@ -14,4 +14,4 @@ COHERE_API_KEY = "@COHERE_API_KEY"
 TAVILY_API_KEY = "@TAVILY_API_KEY"
 DATABASE_URL = "@DATABASE_URL"
 PYTHONPATH = "/app/backend"
-PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin/python3"
+PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

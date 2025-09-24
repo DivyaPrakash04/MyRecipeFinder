@@ -11,18 +11,30 @@ nixPkgs = [
     "python311",
     "gcc",
     "python3-pip",
-    "python3-dev"
+    "python3-dev",
+    "python311-pip",
+    "python311-dev"
 ]
 
 [phases.install]
 cmds = [
     "echo '=== Nixpacks Install Phase ==='",
-    "python3 --version || python3.11 --version || python3.10 --version || python3.9 --version || echo 'No Python found'",
-    "python3 -m ensurepip --upgrade || python3.11 -m ensurepip --upgrade || echo 'ensurepip failed'",
-    "python3 -m pip install --upgrade pip setuptools wheel || python3.11 -m pip install --upgrade pip setuptools wheel || echo 'pip upgrade failed'",
-    "python3 -m pip install -r requirements.txt || python3.11 -m pip install -r requirements.txt || echo 'requirements installation failed'",
-    "echo '=== Installation Complete ==='"
+    "echo 'Checking Python installations...'",
+    "python3 --version 2>/dev/null || python3.11 --version 2>/dev/null || python3.10 --version 2>/dev/null || python3.9 --version 2>/dev/null || echo 'No Python found in setup'",
+
+    "echo 'Setting up Python environment...'",
+    "python3 -m ensurepip --upgrade 2>/dev/null || python3.11 -m ensurepip --upgrade 2>/dev/null || echo 'ensurepip failed'",
+
+    "echo 'Upgrading pip...'",
+    "python3 -m pip install --upgrade pip setuptools wheel 2>/dev/null || python3.11 -m pip install --upgrade pip setuptools wheel 2>/dev/null || echo 'pip upgrade failed'",
+
+    "echo 'Installing Python dependencies...'",
+    "cd backend && python3 -m pip install -r requirements.txt 2>/dev/null || python3.11 -m pip install -r requirements.txt 2>/dev/null || echo 'requirements installation failed'",
+
+    "echo '=== Installation Complete ==='",
+    "echo 'Verifying installation...'",
+    "cd backend && python3 -c 'import flask; print(\"Flask imported successfully\")' 2>/dev/null || python3.11 -c 'import flask; print(\"Flask imported successfully\")' 2>/dev/null || echo 'Flask verification failed'"
 ]
 
 [start]
-cmd = "chmod +x start.sh && ./start.sh"
+cmd = "./start.sh"

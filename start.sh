@@ -12,7 +12,9 @@ which python3.11 || echo "python3.11 not found"
 echo "PATH: $PATH"
 echo "=== End Debug Info ==="
 
-# Railway runs this script from the backend directory, so no need to cd
+# Railway runs this script from the root directory (/app), so we need to cd to backend
+cd backend
+
 # Try different Python commands in order of preference
 PYTHON_CMD=""
 
