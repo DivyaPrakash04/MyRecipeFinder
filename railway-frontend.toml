@@ -14,7 +14,7 @@ type = "web"
 name = "myrecipefinder-frontend"
 runtime = "nodejs"
 buildCommand = "cd frontend && npm install && npm run build"
-startCommand = "cd frontend && npm run preview -- --host 0.0.0.0 --port $PORT"
+startCommand = "cd frontend && npm run preview -- --host 0.0.0.0 --port $PORT --allowed-hosts all"
 
 [services.frontend.envVars]
 VITE_API_BASE_URL = "https://myrecipefinder-prod.up.railway.app"
