@@ -1,0 +1,21 @@
+# Railway configuration for React frontend
+[build]
+builder = "nixpacks"
+
+[build.env]
+NODE_ENV = "production"
+
+[deploy]
+startCommand = "npm run preview"
+healthcheckPath = "/"
+
+[services.frontend]
+type = "web"
+name = "myrecipefinder-frontend"
+runtime = "nodejs"
+buildCommand = "cd frontend && npm install && npm run build"
+startCommand = "cd frontend && npm run preview -- --host 0.0.0.0 --port $PORT"
+
+[services.frontend.envVars]
+VITE_API_BASE_URL = "https://myrecipefinder-production.up.railway.app"
+NODE_ENV = "production"
