@@ -11,6 +11,10 @@ backend/*.pyc
 backend/.env
 backend/app.db
 backend/.env.mcp
+
+# Deployment scripts
+start.sh
+
 # OS
 .DS_Store
 Thumbs.db
