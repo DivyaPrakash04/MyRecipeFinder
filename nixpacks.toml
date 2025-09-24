@@ -1,8 +1,16 @@
+[variables]
+PYTHON_VERSION = "3.11"
+
 [phases.setup]
-nixPkgs = ["python39", "python3", "gcc"]
+nixPkgs = ["python311", "python3", "python39", "python310", "python311", "gcc"]
 
 [phases.install]
-cmds = ["cd backend && python3 -m pip install -r requirements.txt"]
+cmds = [
+    "cd backend",
+    "python3 -m ensurepip --upgrade",
+    "python3 -m pip install --upgrade pip setuptools wheel",
+    "python3 -m pip install -r requirements.txt"
+]
 
 [start]
-cmd = "cd backend && python3 app.py"
+cmd = "./start.sh"
