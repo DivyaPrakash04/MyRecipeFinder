@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import api from '../lib/api'
-const BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000'
+const BASE = import.meta.env.VITE_API_BASE_URL || 'https://myrecipefinder-prod.up.railway.app'
 
 const STARTER_SUGGESTIONS = [
   'Plan a 20-minute dinner under 600 calories',

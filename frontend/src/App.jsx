@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Chatbot from './components/Chatbot.jsx'
 import RecipeSearch from './components/RecipeSearch.jsx'
 import HealthProfileCard from './components/HealthProfileCard.jsx'
+import api from './lib/api.js'
 
 export default function App() {
   const [sessionId, setSessionId] = useState(localStorage.getItem('session_id'))
@@ -11,10 +12,14 @@ export default function App() {
   useEffect(() => {
     async function ensureSession() {
       if (!sessionId) {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/sessions`, { method: 'POST' })
-        const data = await res.json()
-        localStorage.setItem('session_id', data.session_id)
-        setSessionId(data.session_id)
+        try {
+          const res = await api.post('/api/sessions')
+          const data = res.data
+          localStorage.setItem('session_id', data.session_id)
+          setSessionId(data.session_id)
+        } catch (error) {
+          console.error('Failed to create session:', error)
+        }
       }
     }
     ensureSession()
