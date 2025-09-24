@@ -7,15 +7,11 @@ export default defineConfig({
     host: '0.0.0.0',
     port: process.env.PORT || 8080,
     strictPort: true,
-    // Allow Railway domains
-    allowedHosts: [
-      'myrecipefinder.up.railway.app',
-      'myrecipefinder-frontend-production.up.railway.app',
-      '.railway.app'  // This allows all railway.app subdomains
-    ]
+    allowedHosts: 'all'  // Changed: Use 'all' instead of array
   },
   server: {
     host: '0.0.0.0',
-    port: process.env.PORT || 5173
+    port: process.env.PORT || 5173,
+    allowedHosts: 'all'  // Added: Also for server config
   }
 })
