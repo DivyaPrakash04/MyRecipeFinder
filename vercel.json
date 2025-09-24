@@ -1,8 +1,14 @@
 {
-  "build": {
-    "command": "npm run build",
-    "publish": "dist"
-  },
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
   "redirects": [
     {
       "from": "/api/*",
