@@ -1,5 +1,6 @@
 import os
 import json
+import time
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask import Response, stream_with_context
@@ -142,6 +143,11 @@ def chat():
         else:
             reply = generate_reply(system_instructions, history_messages, user_msg, context)
 
+        # Ensure we have a complete response
+        if not reply or len(reply.strip()) < 10:
+            reply = "I'm sorry, I couldn't generate a complete response. Please try again with a more specific question."
+            app.logger.warning(f"Generated short/invalid response: '{reply}'")
+
         # persist assistant reply (LangGraph would persist inside the graph instead)
         db.add(Message(session_id=session_id, role="assistant", content=reply))
         db.commit()
@@ -209,19 +215,29 @@ def chat_stream():
                     reply = run_graph(session_id=session_id, user_message=user_msg, selected_context=context)
                 else:
                     reply = generate_reply(system_instructions, history_messages, user_msg, context)
+
+                # Ensure we have a complete response
+                if not reply or len(reply.strip()) < 10:
+                    reply = "I'm sorry, I couldn't generate a complete response. Please try again."
+
             except Exception as e:
-                yield f"data: ERROR: {str(e)}\n\n"
+                app.logger.exception("LLM generation failed: %s", e)
+                reply = f"I'm sorry, I encountered an error: {str(e)}. Please try again."
+                yield f"data: {reply}\n\n"
+                yield "event: end\ndata: done\n\n"
                 return
 
             # persist assistant reply
             db.add(Message(session_id=session_id, role="assistant", content=reply))
             db.commit()
 
-            # Stream in chunks
-            chunk_size = 200
+            # Stream in smaller chunks to prevent truncation
+            chunk_size = 150  # Balanced chunk size for streaming
             for i in range(0, len(reply), chunk_size):
                 chunk = reply[i:i+chunk_size]
                 yield f"data: {chunk}\n\n"
+                time.sleep(0.01)  # Small delay to prevent overwhelming the client
+
             # signal end
             yield "event: end\ndata: done\n\n"
         finally:

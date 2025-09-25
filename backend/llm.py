@@ -1,7 +1,9 @@
 import os
 import cohere
+import logging
 
 _co_client = None
+logger = logging.getLogger("llm")
 
 def _get_client() -> cohere.Client:
     global _co_client
@@ -43,15 +45,20 @@ def generate_reply(system_instructions: str, history: list[dict], user_message: 
         messages.append({"role": "user", "content": user_message})
 
         resp = co.responses.create(
-            model=os.getenv("LLM_MODEL", "command-r-plus"),
+            model=os.getenv("LLM_MODEL", "command-a-03-2025"),
             messages=messages,
-            temperature=0.3,
+            temperature=0.4,  # Balanced for nutrition accuracy
+            max_tokens=2000,  # Ensure complete responses
+            stream=False,     # Disable streaming for complete responses
         )
         # Try the common fields first
         text = getattr(resp, "output_text", None) or getattr(resp, "text", None)
         if text:
+            logger.info(f"LLM response length: {len(str(text))} characters")
             return str(text).strip()
-        return str(resp).strip()
+        else:
+            logger.warning(f"No text found in response: {resp}")
+            return str(resp).strip()
 
     # Fallback: legacy Chat API uses message + chat_history + preamble
     preamble = ""
@@ -71,13 +78,17 @@ def generate_reply(system_instructions: str, history: list[dict], user_message: 
             chat_history.append({"role": "CHATBOT", "message": text})
 
     resp = co.chat(
-        model=os.getenv("LLM_MODEL", "command-r-plus"),
+        model=os.getenv("LLM_MODEL", "command-a-03-2025"),
         message=user_message,
         chat_history=chat_history if chat_history else None,
         preamble=preamble or None,
-        temperature=0.3,
+        temperature=0.4,  # Balanced for nutrition accuracy
+        max_tokens=2000,  # Ensure complete responses
     )
     # Legacy chat returns .text
     if hasattr(resp, "text") and resp.text:
+        logger.info(f"Legacy chat response length: {len(resp.text)} characters")
         return resp.text.strip()
-    return str(resp).strip()
+    else:
+        logger.warning(f"Legacy chat - No text found in response: {resp}")
+        return str(resp).strip()
